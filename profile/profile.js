@@ -6,7 +6,7 @@ const noroffProfileUrl = "https://api.noroff.dev/api/v1/social/profiles/";
 async function getProfile(username){
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(noroffProfileUrl+username, {
+        const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
