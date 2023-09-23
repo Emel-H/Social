@@ -24,8 +24,8 @@
                 <div class="col"></div>
                 <div class="col-sm-6">
                     <h1 class="text-center my-1">Register your X-Book user</h1>
-                    
-                    <form method="POST" action="" class="need-validation">
+                    <p class="text-center my-1" id="userFeedback">Enter registration info below</p>
+                    <form method="POST" id="RegistrationForm" class="need-validation">
                         <div class="form-group my-4">
                             <label for="FirstName">First Name</label>
                             <input type="text" class="form-control form-control-lg" required id="FirstName" aria-describedby="first name">
@@ -47,7 +47,7 @@
                             <small id="password" class="form-text text-muted">For Safety, password must be a minimum of 8 characters in length</small>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary w-100 btn-lg">Sign up</button>
+                        <button type="submit" id="SubmitButton" class="btn btn-primary w-100 btn-lg">Sign up</button>
                     </form>
                 </div>
                 <div class="col"></div>
@@ -56,5 +56,6 @@
             
         </main>
         <script src="/node_modules/bootstrap/dist/js/bootstrap.js"> </script>
+        <script src="/register/register.js"> </script>
     </body>
 </html>
