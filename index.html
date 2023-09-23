@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="XBook login page"></meta>
+        <meta name="keywords" content="social media, feed, login, Xbook"></meta>
+        <title>X-Book Sign In</title>
+        <link rel="stylesheet" href="/dist/css/styles.css">
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+              <a class="navbar-brand mx-5" href="/index.html">X-Book</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              
+            </div>
+          </nav>
+        <main>
+            <div class="container">
+            <div class="row my-5">
+                <div class="col"></div>
+                <div class="col-sm-6">
+                    <h1 class="text-center my-5">Welcome to X-Book</h1>
+                    
+                    <form method="Get" action="/profile/index.html">
+                        <div class="form-group needs-validation">
+                            <label for="InputEmail">User Name (Email address)</label>
+                            <input type="email" class="form-control form-control-lg" required id="InputEmail" aria-describedby="email">
+                            <small id="email" class="form-text text-muted">Emails will not be disclosed or shared with anyone.</small>
+                        </div>
+                        <div class="form-group my-4">
+                            <label for="InputPassword">Password</label>
+                            <input type="password" class="form-control form-control-lg" minlength="8" required id="InputPassword">
+                        </div>
+                        <div class="form-group form-check mt-4">
+                            <input type="checkbox" class="form-check-input" id="Check">
+                            <label class="form-check-label" for="Check">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">Sign in</button>
+                    </form>
+                </div>
+                <div class="col"></div>
+            </div>
+            </div>
+            
+        </main>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"> </script>
+    </body>
+</html>
