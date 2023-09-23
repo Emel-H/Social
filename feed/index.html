@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="XBook login page"></meta>
+        <meta name="keywords" content="social media, feed, login, Xbook"></meta>
+        <title>X-Book Sign In</title>
+        <link rel="stylesheet" href="/dist/css/styles.css">
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+              <a class="navbar-brand mx-5" href="/index.html">X-Book</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                  <li class="nav-item">
+                    <a class="nav-link " href="/profile">My Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/feed">My Feed</a>
+                  </li>
+                  
+                </ul>
+                <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+              </div>
+            </div>
+          </nav>
+        <main>
+            <div class="container">
+            <div class="row my-5">
+                <div class="col-2"></div>
+                <div class="col-sm-8">
+                    
+                    <h2 class="text-center my-3">My Feed</h2>
+                    <h3 class="my-3 text-white bg-info">Filter posts</h3>
+                    <form class="d-flex">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Category</option>
+                            <option value="1">Funny</option>
+                            <option value="2">Entertainment</option>
+                            <option value="3">Sport</option>
+                          </select>
+                        <input class="form-control me-2 mx-1" type="search" placeholder="Search" aria-label="Search">
+                        
+                      </form>
+                      <button type="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Filter</button>
+
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <div class="row">
+                            <div class="col-1">
+                                <a href="/profile" ><img class="img-fluid img-thumbnail my-2" src="/images/profile.png" alt="profile image"></a>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="my-3">Jane Doe 13/12-86</h4>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <a href="#" class="btn btn-light">Read more</a>
+                        </div>
+                    </div>
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <div class="row">
+                            <div class="col-1">
+                                <a href="/profile" ><img class="img-fluid img-thumbnail my-2" src="/images/profile.png" alt="profile image"></a>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="my-3">Jane Doe 13/12-86</h4>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <a href="#" class="btn btn-light">Read more</a>
+                        </div>
+                    </div>
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <div class="row">
+                            <div class="col-1">
+                                <a href="/profile" ><img class="img-fluid img-thumbnail my-2" src="/images/profile.png" alt="profile image"></a>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="my-3">Jane Doe 13/12-86</h4>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <a href="#" class="btn btn-light">Read more</a>
+                        </div>
+                    </div>
+
+                    <h3 class="my-3 text-white bg-info mt-5">Add New Post</h3>
+                    <form >
+                        <div class="form-group my-2">
+                            <label for="Category">Category</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Category</option>
+                                <option value="1">Funny</option>
+                                <option value="2">Entertainment</option>
+                                <option value="3">Sport</option>
+                              </select>
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="PostTitle">Post Title</label>
+                            <input type="text" class="form-control" required id="PostTitle" aria-describedby="post title">
+                        </div>
+                        <div class="form-group my-2">
+                            <label for="PostText">Post Text</label>
+                            <input type="textarea" class="form-control" required id="PostText" aria-describedby="post text">
+                        </div>
+                        
+                      </form>
+                      <button type="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Submit Post</button>
+        
+                </div>
+                <div class="col-2"></div>
+            </div>
+            </div>
+            
+            
+        </main>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.js"> </script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"> </script>
+    </body>
+</html>
