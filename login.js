@@ -22,6 +22,7 @@ async function login(user){
             localStorage.username = jsonReturn.name;
             localStorage.email = jsonReturn.email;
             localStorage.accessToken = jsonReturn.accessToken;
+            localStorage.avatar = jsonReturn.avatar;
             document.location.href = 'profile/index.html';
         }
         else{
