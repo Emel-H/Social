@@ -57,7 +57,7 @@ function getProfileFollowers(jsonReturn){
         const followerlink = document.createElement("a");
         followerlink.href = "/profile/index.html?user="+element.name;
         const followerImg = document.createElement("img");
-        followerImg.className = "img-fluid img-thumbnail my-2";
+        followerImg.className = "img-fluid img-thumbnail my-2 w-100";
         if(element.avatar != null){
             followerImg.src = element.avatar
         }
@@ -76,7 +76,7 @@ function getProfileFollowing(jsonReturn){
         const followinglink = document.createElement("a");
         followinglink.href = "/profile/index.html?user="+element.name;
         const followingImg = document.createElement("img");
-        followingImg.className = "img-fluid img-thumbnail my-2";
+        followingImg.className = "img-fluid img-thumbnail my-2 w-100";
         if(element.avatar != null){
             followingImg.src = element.avatar
         }
