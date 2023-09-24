@@ -1,26 +1,26 @@
 
 const noroffProfileUrl = "https://api.noroff.dev/api/v1/social/profiles/";
 
-
-
 async function getProfile(username){
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-                Authorization: `Bearer ${token}`,
-              },
-        });
-        const jsonReturn = await response.json();
-        console.log(jsonReturn);
-
-        if(response.ok){
-            profileName.innerHTML = jsonReturn.name;
-            profileEmail.innerHTML = jsonReturn.email;
+        if(token==null){
+            document.location.href = '/index.html';
+        }else{
+            const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+            });
+            const jsonReturn = await response.json();
+            console.log(jsonReturn);
+    
+            if(response.ok){
+                profileName.innerHTML = jsonReturn.name;
+                profileEmail.innerHTML = jsonReturn.email;
+            }
         }
-        
     }
     catch (error) {
         // catches errors both in fetch and response.json
