@@ -10,8 +10,10 @@ async function getProfile(username){
             const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
                 method: 'GET',
                 headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
                     Authorization: `Bearer ${token}`,
                   },
+                
             });
             const jsonReturn = await response.json();
             console.log(jsonReturn);
@@ -31,7 +33,6 @@ async function getProfile(username){
         console.log(error);
     }
 }
-
 function getProfileName(jsonReturn){
     const profileName = document.getElementById("profileName");
     profileName.innerHTML = jsonReturn.name;
@@ -87,8 +88,31 @@ function getProfileFollowing(jsonReturn){
         following.append(followinglink);
     });
 }
-function getProfilePosts(jsonReturn){}
-
+function getProfilePosts(jsonReturn){
+    const posts = document.getElementById("profilePosts");
+    const profilePosts = jsonReturn.posts;
+    profilePosts.forEach(element => {
+        const card = document.createElement("div");
+        card.className = "card my-2";
+        const cardHeader = document.createElement("div");
+        cardHeader.className = "card-header";
+        const postTitle = document.createElement("h4");
+        postTitle.innerHTML = element.title;
+        cardHeader.append(postTitle);
+        const postOwner = document.createElement("p");
+        postOwner.innerHTML = "posted by "+element.owner + " on " + new Date(element.updated);
+        cardHeader.append(postOwner);
+        card.append(cardHeader);
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+        const postBody = document.createElement("p");
+        postBody.className = "card-text";
+        postBody.innerHTML = element.body;
+        cardBody.append(postBody);
+        card.append(cardBody);
+        posts.append(card); 
+    });
+}
 function setProfileUser(){
     const queryString = document.location.search;
     const params = new URLSearchParams(queryString);
@@ -97,7 +121,6 @@ function setProfileUser(){
         username = user;
     }
 }
-
 let username = localStorage.getItem('username');
 setProfileUser();
 getProfile(username);
