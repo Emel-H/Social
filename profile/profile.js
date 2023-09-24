@@ -17,8 +17,12 @@ async function getProfile(username){
             console.log(jsonReturn);
     
             if(response.ok){
-                profileName.innerHTML = jsonReturn.name;
-                profileEmail.innerHTML = jsonReturn.email;
+                getProfileName(jsonReturn);
+                getProfileAvatar(jsonReturn);
+                getProfileEmail(jsonReturn);
+                getProfileFollowers(jsonReturn);
+                getProfileFollowing(jsonReturn);
+                getProfilePosts(jsonReturn);
             }
         }
     }
@@ -27,6 +31,63 @@ async function getProfile(username){
         console.log(error);
     }
 }
+
+function getProfileName(jsonReturn){
+    const profileName = document.getElementById("profileName");
+    profileName.innerHTML = jsonReturn.name;
+}
+function getProfileAvatar(jsonReturn){
+    const profileImage = document.getElementById("profileImage");
+    if(jsonReturn.avatar !=null){
+        profileImage.src = jsonReturn.avatar;
+    }
+    else{
+        profileImage.src = "/images/profile.png";
+    }
+}
+function getProfileEmail(jsonReturn){
+    const profileEmail = document.getElementById("profileEmail");
+    profileEmail.innerHTML = jsonReturn.email;
+}
+function getProfileFollowers(jsonReturn){
+    const followers = document.getElementById("profileFollowers");
+    const profileFollowers = jsonReturn.followers;
+    profileFollowers.forEach(element => {
+        const followerlink = document.createElement("a");
+        followerlink.href = "/profile/index.html?user="+element.name;
+        const followerImg = document.createElement("img");
+        followerImg.className = "img-fluid img-thumbnail my-2";
+        if(element.avatar != null){
+            followerImg.src = element.avatar
+        }
+        else{
+            followerImg.src = "/images/profile.png";
+        }
+        followerImg.alt = "profile image "+element.name;
+        followerlink.append(followerImg);
+        followers.append(followerlink);
+    });
+}
+function getProfileFollowing(jsonReturn){
+    const following = document.getElementById("profileFollowing");
+    const profileFollowing = jsonReturn.following;
+    profileFollowing.forEach(element => {
+        const followinglink = document.createElement("a");
+        followinglink.href = "/profile/index.html?user="+element.name;
+        const followingImg = document.createElement("img");
+        followingImg.className = "img-fluid img-thumbnail my-2";
+        if(element.avatar != null){
+            followingImg.src = element.avatar
+        }
+        else{
+            followingImg.src = "/images/profile.png";
+        }
+        followingImg.alt = "profile image "+element.name;
+        followinglink.append(followingImg);
+        following.append(followinglink);
+    });
+}
+function getProfilePosts(jsonReturn){}
 
 function setProfileUser(){
     const queryString = document.location.search;
@@ -39,8 +100,4 @@ function setProfileUser(){
 
 let username = localStorage.getItem('username');
 setProfileUser();
-
-const profileImage = document.getElementById("profileImage");
-const profileName = document.getElementById("profileName");
-const profileEmail = document.getElementById("profileEmail");
 getProfile(username);
