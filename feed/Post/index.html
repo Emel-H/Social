@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="XBook login page"></meta>
         <meta name="keywords" content="social media, feed, login, Xbook"></meta>
-        <title>Feed | X-Book</title>
+        <title>Post | X-Book</title>
         <link rel="stylesheet" href="/dist/css/styles.css">
     </head>
     <body>
@@ -25,7 +25,9 @@
                   </li>
                   
                 </ul>
-                
+                <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
               </div>
             </div>
           </nav>
@@ -35,21 +37,29 @@
                     <div class="col-2"></div>
                     <div class="col-sm-8">
                         
-                        <h2 class="text-center my-3">My Feed</h2>
-                        <h3 class="my-3 text-white bg-info">Filter posts</h3>
-                        <form class="d-flex">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>All Posts</option>
-                                <option value="1">Following Posts</option>
-                            </select>
-                            <input class="form-control me-2 mx-1" type="search" placeholder="Search" aria-label="Search">
+                        <h3 class="my-3 text-white bg-info mt-5">Add New Post</h3>
+                        <form >
+                            <div class="form-group my-2">
+                                <label for="Category">Category</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Category</option>
+                                    <option value="1">Funny</option>
+                                    <option value="2">Entertainment</option>
+                                    <option value="3">Sport</option>
+                                </select>
+                            </div>
+                            <div class="form-group my-2">
+                                <label for="PostTitle">Post Title</label>
+                                <input type="text" class="form-control" required id="PostTitle" aria-describedby="post title">
+                            </div>
+                            <div class="form-group my-2">
+                                <label for="PostText">Post Text</label>
+                                <input type="textarea" class="form-control" required id="PostText" aria-describedby="post text">
+                            </div>
                             
                         </form>
-                        <button type="submit" id="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Submit</button>
-
-                        <div id="posts">
-                            
-                        </div>
+                        <button type="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Submit Post</button>
+            
                     </div>
                     <div class="col-2"></div>
                 </div>
@@ -58,6 +68,6 @@
             
         </main>
         <script src="/node_modules/bootstrap/dist/js/bootstrap.js"> </script>
-        <script src="/feed/feed.js"> </script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"> </script>
     </body>
 </html>
