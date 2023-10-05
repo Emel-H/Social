@@ -1,5 +1,6 @@
 
 const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
+let postsArray;
 
 async function getPosts(){
     try {
@@ -17,10 +18,11 @@ async function getPosts(){
                 
             });
             const jsonReturn = await response.json();
-            console.log(jsonReturn);
-    
+            
             if(response.ok){
-                setPosts(jsonReturn);
+                getPostsArray(jsonReturn);
+                const search = document.getElementById("searchinput").value;
+                setPosts(postsArray, search);
             }
         }
     }
@@ -32,7 +34,6 @@ async function getPosts(){
 
 function getFilter(){
     let filter = document.getElementsByClassName("form-select");
-    console.log(filter[0].value);
     if(filter[0].value=="All Posts"){
         return "";
     }
@@ -41,9 +42,8 @@ function getFilter(){
     }
 }
 
-function setPosts(jsonReturn){
-    const posts = document.getElementById("posts");
-    posts.innerHTML = "";
+function getPostsArray(jsonReturn){
+    postsArray = new Array();
     const profilePosts = jsonReturn;
     profilePosts.forEach(element => {
         const card = document.createElement("div");
@@ -69,7 +69,32 @@ function setPosts(jsonReturn){
         readMore.innerHTML = "Read more";
         cardBody.append(readMore);
         card.append(cardBody);
-        posts.append(card); 
+        postsArray.push(card); 
+    });
+}
+
+function setPosts(postsArray,search){
+    const posts = document.getElementById("posts");
+    posts.innerHTML = "";
+    const filteredPosts = postsArray.filter((card) => {
+    if(search==""){
+        return true;
+    } else{
+        if (String(card.innerHTML).replace(/<[^>]+>/g, '').toLowerCase().includes(search.toLowerCase())) {
+            return true;
+            } else {
+            return false;
+            }
+    }
+    });
+
+    const results = document.createElement("p");
+    results.innerHTML = "Found " + filteredPosts.length + " results";
+    results.className = "text-center my-3";
+    posts.append(results);
+
+    filteredPosts.forEach(element => {
+        posts.append(element); 
     });
 }
 

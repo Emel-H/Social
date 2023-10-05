@@ -18,10 +18,10 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                   <li class="nav-item">
-                    <a class="nav-link " href="/profile">My Profile</a>
+                    <a class="nav-link " href="/profile">Profile</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/feed">My Feed</a>
+                    <a class="nav-link active" aria-current="page" href="/feed">Feed</a>
                   </li>
                   
                 </ul>
@@ -37,12 +37,12 @@
                         
                         <h2 class="text-center my-3">My Feed</h2>
                         <h3 class="my-3 text-white bg-info">Filter posts</h3>
-                        <form class="d-flex">
+                        <form class="d-flex" onkeydown="return event.key != 'Enter';">
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>All Posts</option>
                                 <option value="1">Following Posts</option>
                             </select>
-                            <input class="form-control me-2 mx-1" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2 mx-1" id="searchinput" type="search" placeholder="Search" aria-label="Search">
                             
                         </form>
                         <button type="submit" id="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Submit</button>
