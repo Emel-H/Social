@@ -95,6 +95,7 @@ function setPostEdit(jsonReturn){
     submitEdit.id = "submitEdit";
     submitEdit.className = "btn btn-light w-100 btn-lg my-2 mb-5";
     submitEdit.innerHTML = "Submit Edit";
+    submitEdit.addEventListener("click", (e) => {editPost(id);});
 
     form.append(title);
     form.append(body);
@@ -102,9 +103,6 @@ function setPostEdit(jsonReturn){
 
     post.append(form);
 
-    document.getElementById("submitEdit").addEventListener("click", (e) => {
-        editPost(id);
-      });
 }
 
 function setPostView(jsonReturn){
@@ -134,6 +132,7 @@ const queryString = document.location.search;
 const params = new URLSearchParams(queryString);
 const id = params.get("id");
 const edit = params.get("edit");
+const newPost = params.get("new");
 
 getPost(id);
 
