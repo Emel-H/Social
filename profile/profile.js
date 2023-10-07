@@ -121,6 +121,7 @@ function getProfileFollowing(jsonReturn){
 
 function getProfilePosts(jsonReturn){
     const posts = document.getElementById("profilePosts");
+    const addPostButton = document.getElementById("addPostButton");
     const profilePosts = jsonReturn.posts;
     profilePosts.forEach(element => {
         const card = document.createElement("div");
@@ -141,6 +142,7 @@ function getProfilePosts(jsonReturn){
         postBody.innerHTML = element.body;
         cardBody.append(postBody);
         if(username===localStorage.getItem("username")){
+            addPostButton.className = "btn btn-primary w-100 my-2 d-block";
             const edit = document.createElement("a");
             edit.href = "../post/?id="+element.id+"&edit=true";
             edit.className = "btn btn-light";
