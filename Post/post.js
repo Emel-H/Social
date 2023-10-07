@@ -17,7 +17,12 @@ async function getPost(id){
             const jsonReturn = await response.json();
             
             if(response.ok){
-                setPost(jsonReturn);
+                if(edit==="true"){
+                    setPostEdit(jsonReturn);
+                } else {
+                    setPostView(jsonReturn);
+                }
+                
             }
         }
     }
@@ -27,7 +32,11 @@ async function getPost(id){
     }
 }
 
-function setPost(jsonReturn){
+function setPostEdit(jsonReturn){
+
+}
+
+function setPostView(jsonReturn){
     const post = document.getElementById("singlePost");
     const card = document.createElement("div");
     card.className = "card my-2";
@@ -53,5 +62,6 @@ function setPost(jsonReturn){
 const queryString = document.location.search;
 const params = new URLSearchParams(queryString);
 const id = params.get("id");
+const edit = params.get("edit");
 
 getPost(id);

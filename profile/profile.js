@@ -109,6 +109,11 @@ function getProfilePosts(jsonReturn){
         postBody.className = "card-text";
         postBody.innerHTML = element.body;
         cardBody.append(postBody);
+        const edit = document.createElement("a");
+        edit.href = "../post/?id="+element.id+"&edit=true";
+        edit.className = "btn btn-light";
+        edit.innerHTML = "Edit";
+        cardBody.append(edit);
         card.append(cardBody);
         posts.append(card); 
     });
