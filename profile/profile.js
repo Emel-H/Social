@@ -1,5 +1,6 @@
 
 const noroffProfileUrl = "https://api.noroff.dev/api/v1/social/profiles/";
+const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
 
 async function getProfile(username){
     try {
@@ -16,8 +17,7 @@ async function getProfile(username){
                 
             });
             const jsonReturn = await response.json();
-            console.log(jsonReturn);
-    
+            
             if(response.ok){
                 getProfileName(jsonReturn);
                 getProfileAvatar(jsonReturn);
@@ -33,10 +33,37 @@ async function getProfile(username){
         console.log(error);
     }
 }
+
+async function deletePost(id){
+    try {
+        const token = localStorage.getItem('accessToken');
+        if(token==null){
+            document.location.href = '/index.html';
+        }else{
+            const response = await fetch(noroffPostsUrl+id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    Authorization: `Bearer ${token}`,
+                  },
+            });
+            const jsonReturn = await response.json();
+            if(response.ok){
+                document.location.href = '/profile/index.html';
+            }
+        }
+    }
+    catch (error) {
+        // catches errors both in fetch and response.json
+        console.log(error);
+    }
+}
+
 function getProfileName(jsonReturn){
     const profileName = document.getElementById("profileName");
     profileName.innerHTML = jsonReturn.name;
 }
+
 function getProfileAvatar(jsonReturn){
     const profileImage = document.getElementById("profileImage");
     if(jsonReturn.avatar !=null){
@@ -46,10 +73,12 @@ function getProfileAvatar(jsonReturn){
         profileImage.src = "/images/profile.png";
     }
 }
+
 function getProfileEmail(jsonReturn){
     const profileEmail = document.getElementById("profileEmail");
     profileEmail.innerHTML = jsonReturn.email;
 }
+
 function getProfileFollowers(jsonReturn){
     const followers = document.getElementById("profileFollowers");
     const profileFollowers = jsonReturn.followers;
@@ -69,6 +98,7 @@ function getProfileFollowers(jsonReturn){
         followers.append(followerlink);
     });
 }
+
 function getProfileFollowing(jsonReturn){
     const following = document.getElementById("profileFollowing");
     const profileFollowing = jsonReturn.following;
@@ -88,6 +118,7 @@ function getProfileFollowing(jsonReturn){
         following.append(followinglink);
     });
 }
+
 function getProfilePosts(jsonReturn){
     const posts = document.getElementById("profilePosts");
     const profilePosts = jsonReturn.posts;
@@ -114,10 +145,17 @@ function getProfilePosts(jsonReturn){
         edit.className = "btn btn-light";
         edit.innerHTML = "Edit";
         cardBody.append(edit);
+        const deleteButton =  document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-dark float-end";
+        deleteButton.innerHTML = "Delete";
+        deleteButton.addEventListener("click", (e) => {deletePost(element.id);});
+        cardBody.append(deleteButton);
         card.append(cardBody);
         posts.append(card); 
     });
 }
+
 function setProfileUser(){
     const queryString = document.location.search;
     const params = new URLSearchParams(queryString);
@@ -126,6 +164,7 @@ function setProfileUser(){
         username = user;
     }
 }
+
 let username = localStorage.getItem('username');
 setProfileUser();
 getProfile(username);
