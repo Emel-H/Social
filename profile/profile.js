@@ -140,17 +140,19 @@ function getProfilePosts(jsonReturn){
         postBody.className = "card-text";
         postBody.innerHTML = element.body;
         cardBody.append(postBody);
-        const edit = document.createElement("a");
-        edit.href = "../post/?id="+element.id+"&edit=true";
-        edit.className = "btn btn-light";
-        edit.innerHTML = "Edit";
-        cardBody.append(edit);
-        const deleteButton =  document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.className = "btn btn-dark float-end";
-        deleteButton.innerHTML = "Delete";
-        deleteButton.addEventListener("click", (e) => {deletePost(element.id);});
-        cardBody.append(deleteButton);
+        if(username===localStorage.getItem("username")){
+            const edit = document.createElement("a");
+            edit.href = "../post/?id="+element.id+"&edit=true";
+            edit.className = "btn btn-light";
+            edit.innerHTML = "Edit";
+            cardBody.append(edit);
+            const deleteButton =  document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-dark float-end";
+            deleteButton.innerHTML = "Delete";
+            deleteButton.addEventListener("click", (e) => {deletePost(element.id);});
+            cardBody.append(deleteButton);
+        }
         card.append(cardBody);
         posts.append(card); 
     });
