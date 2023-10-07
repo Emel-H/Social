@@ -33,10 +33,10 @@
         <main>
             <div class="container">
                 <div class="row my-5">
-                    <div class="col-2"></div>
-                    <div class="col-sm-8">
+                    <div class="col-1"></div>
+                    <div class="col-sm-10">
                         <div class="row">
-                            <div class="col-4 ">
+                            <div class="col ">
                                 <img id="profileImage" class="w-100" src="" alt="profile image">
                             </div>
                             <div class="col mx-1">
@@ -47,22 +47,25 @@
                                 
                             </div>
                         </div>
-                        <div class="row my-5">
-                            <div class="col-4 ">
+                        <div id="profilePosts" class="row">
+                            <h2 class="text-center my-3 text-white bg-info">Personal Posts</h2> 
+                            <a href="/post/?new=true" id="addPostButton" class="btn btn-primary w-100 my-2 d-none">Add New Post</a>
+                        </div>
+                        <div class="row my-6">
+                            <div class="col ">
                                 <div id="profileFollowers" class="row">
                                     <h2 class=" my-3 text-white bg-info">Followers</h2>
                                 </div>
+                            </div>
+                            <div class="col ">
                                 <div id="profileFollowing" class="row ">
-                                    <h2 class=" mt-5 mb-3 text-white bg-info">Following</h2> 
+                                    <h2 class=" my-3 text-white bg-info">Following</h2> 
                                 </div>
                             </div>
-                            <div id="profilePosts" class="col">
-                                <h2 class="text-center my-3 text-white bg-info">Posts</h2> 
-                                <a href="/post/?new=true" class="btn btn-primary w-100 my-2">Add New Post</a>
-                            </div>
+                            
                         </div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="col-1"></div>
                 </div>
             </div>
         </main>
