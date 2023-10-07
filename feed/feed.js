@@ -64,7 +64,7 @@ function getPostsArray(jsonReturn){
         postBody.innerHTML = element.body;
         cardBody.append(postBody);
         const readMore = document.createElement("a");
-        readMore.href = document.URL +"Post/?id="+element.id;
+        readMore.href = "../Post/?id="+element.id;
         readMore.className = "btn btn-light";
         readMore.innerHTML = "Read more";
         cardBody.append(readMore);

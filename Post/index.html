@@ -18,16 +18,13 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                   <li class="nav-item">
-                    <a class="nav-link " href="/profile">My Profile</a>
+                    <a class="nav-link " href="/profile">Profile</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/feed">My Feed</a>
+                    <a class="nav-link active" aria-current="page" href="/feed">Feed</a>
                   </li>
                   
                 </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                </form>
               </div>
             </div>
           </nav>
@@ -36,8 +33,10 @@
                 <div class="row my-5">
                     <div class="col-2"></div>
                     <div class="col-sm-8">
-                        
-                        <h3 class="my-3 text-white bg-info mt-5">Add New Post</h3>
+                      <div id="singlePost">
+
+                      </div>
+                       <!-- <h3 class="my-3 text-white bg-info mt-5">Add New Post</h3>
                         <form >
                             <div class="form-group my-2">
                                 <label for="Category">Category</label>
@@ -59,7 +58,7 @@
                             
                         </form>
                         <button type="submit" class="btn btn-light w-100 btn-lg my-2 mb-5">Submit Post</button>
-            
+                      -->
                     </div>
                     <div class="col-2"></div>
                 </div>
@@ -68,6 +67,6 @@
             
         </main>
         <script src="/node_modules/bootstrap/dist/js/bootstrap.js"> </script>
-        <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"> </script>
+        <script src="/Post/post.js"> </script>
     </body>
 </html>
