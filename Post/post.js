@@ -32,8 +32,79 @@ async function getPost(id){
     }
 }
 
-function setPostEdit(jsonReturn){
+async function editPost(id){
+    try {
+        const token = localStorage.getItem('accessToken');
+        if(token==null){
+            document.location.href = '/index.html';
+        }else{
+            const response = await fetch(noroffPostsUrl+id, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    title: document.getElementById("postTitle").value,
+                    body: document.getElementById("postBody").value,
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    Authorization: `Bearer ${token}`,
+                  },
+            });
+            const jsonReturn = await response.json();
+            if(response.ok){
+                document.location.href = '/profile/index.html';
+            }
+        }
+    }
+    catch (error) {
+        // catches errors both in fetch and response.json
+        console.log(error);
+    }
+}
 
+function setPostEdit(jsonReturn){
+    const post = document.getElementById("singlePost");
+    const form = document.createElement("form");
+    form.onkeydown = "return event.key != 'Enter';";
+
+    const title = document.createElement("div");
+    title.className = "form-group my-2";
+    const titleLabel = document.createElement("label");
+    titleLabel.innerHTML = "Post Title:";
+    const postTitle = document.createElement("input");
+    postTitle.type = "text";
+    postTitle.className = "form-control";
+    postTitle.id= "postTitle";
+    postTitle.value = jsonReturn.title;
+    title.append(titleLabel);
+    title.append(postTitle);
+
+    const body = document.createElement("div");
+    body.className = "form-group my-2";
+    const bodyLabel = document.createElement("label");
+    bodyLabel.innerHTML = "Post Text:";
+    const postBody = document.createElement("input");
+    postBody.type = "textarea";
+    postBody.className = "form-control";
+    postBody.id = "postBody";
+    postBody.value = jsonReturn.body;
+    body.append(bodyLabel);
+    body.append(postBody);
+
+    const submitEdit =  document.createElement("button");
+    submitEdit.type = "button";
+    submitEdit.id = "submitEdit";
+    submitEdit.className = "btn btn-light w-100 btn-lg my-2 mb-5";
+    submitEdit.innerHTML = "Submit Edit";
+
+    form.append(title);
+    form.append(body);
+    form.append(submitEdit);
+
+    post.append(form);
+
+    document.getElementById("submitEdit").addEventListener("click", (e) => {
+        editPost(id);
+      });
 }
 
 function setPostView(jsonReturn){
@@ -65,3 +136,4 @@ const id = params.get("id");
 const edit = params.get("edit");
 
 getPost(id);
+
