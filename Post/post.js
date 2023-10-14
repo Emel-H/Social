@@ -1,5 +1,9 @@
-const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
+import{postGet, postEdit, postNew} from "../RESTAPI_module.mjs";
 
+/**
+ * function to get a specific post, based on the request you will get a new post adding view, or an edit option or simply view option for the post
+ * @param {number} id identified of the post 
+ */
 async function getPost(id){
     try {
         const token = localStorage.getItem('accessToken');
@@ -10,13 +14,7 @@ async function getPost(id){
                 setPostNew();
             }
             else{
-                const response = await fetch(noroffPostsUrl+id+"?_author=true&_comments=true", {
-                    method: 'GET',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await postGet(id, token);
                 const jsonReturn = await response.json();
                 
                 if(response.ok){
@@ -37,23 +35,17 @@ async function getPost(id){
     }
 }
 
+/**
+ * function to send an edit request, if response is ok you are redirected to profile page to view the edits 
+ * @param {number} id identifier of the post to edit 
+ */
 async function editPost(id){
     try {
         const token = localStorage.getItem('accessToken');
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl+id, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    title: document.getElementById("postTitle").value,
-                    body: document.getElementById("postBody").value,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postEdit(id, token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';
@@ -66,23 +58,16 @@ async function editPost(id){
     }
 }
 
+/**
+ * function to add a new post via noroff RESTAPI, if response is ok the user is redirected to profile page to see the post added among their posts
+ */
 async function newPost(){
     try {
         const token = localStorage.getItem('accessToken');
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl, {
-                method: 'POST',
-                body: JSON.stringify({
-                    title: document.getElementById("postTitle").value,
-                    body: document.getElementById("postBody").value,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postNew(token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';
@@ -95,7 +80,10 @@ async function newPost(){
     }
 }
 
-function setPostNew(jsonReturn){
+/**
+ * function to populate the page with a form to add a new post 
+ */
+function setPostNew(){
     const post = document.getElementById("singlePost");
     const form = document.createElement("form");
     form.onkeydown = "return event.key != 'Enter';";
@@ -137,6 +125,10 @@ function setPostNew(jsonReturn){
 
 }
 
+/**
+ * function to populate the page with a form to edit an existing post, the form is populated with data retrieved from the RESTAPI call coresponding to the post id 
+ * @param {JSON} jsonReturn the json returned from the API call attempt with data on this specific post
+ */
 function setPostEdit(jsonReturn){
     const post = document.getElementById("singlePost");
     const form = document.createElement("form");
@@ -181,6 +173,10 @@ function setPostEdit(jsonReturn){
 
 }
 
+/**
+ * function to populate the page with data retrieved from the RESTAPI call coresponding to the post id 
+ * @param {JSON} jsonReturn the json returned from the API call attempt with data on this specific post
+ */
 function setPostView(jsonReturn){
     const post = document.getElementById("singlePost");
     const card = document.createElement("div");

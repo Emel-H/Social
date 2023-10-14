@@ -1,20 +1,12 @@
+import{loginUser} from "./RESTAPI_module.mjs";
 
-const noroffLoginUrl = "https://api.noroff.dev/api/v1/social/auth/login";
-
-const user = {
-    "email": "first.last@stud.noroff.no", 
-    "password": "UzI1NiIsInR5cCI"
-  };
-
+/**
+ * function to attempt logging in, if the response is ok from the API the user information is stored in local storage and user is directed to their profile page
+ * @param {user} user the user information from the login page 
+ */
 async function login(user){
     try {
-        const response = await fetch(noroffLoginUrl, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-              },
-        });
+        const response = await loginUser(user);
         const jsonReturn = await response.json();
         console.log(jsonReturn);
 
@@ -26,6 +18,7 @@ async function login(user){
             document.location.href = 'profile/index.html';
         }
         else{
+            const message = document.getElementById("userFeedback");
             message.innerHTML = jsonReturn.errors[0].message;
             message.style.color = "red";
         }
@@ -37,16 +30,17 @@ async function login(user){
     }
 }
 
-let message = document.getElementById("userFeedback");
-let loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const email = document.getElementById("InputEmail").value;
     const password = document.getElementById("InputPassword").value;
 
-    user.email = email;
-    user.password = password;
+    const user = {
+        "email": email, 
+        "password": password
+      };
 
     login(user);
 

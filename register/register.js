@@ -1,21 +1,12 @@
+import{registerUser} from "../RESTAPI_module.mjs";
 
-const noroffRegisterUrl = "https://api.noroff.dev/api/v1/social/auth/register";
-
-const user = {
-    "name": "my_username", 
-    "email": "first.last@stud.noroff.no", 
-    "password": "UzI1NiIsInR5cCI"
-  };
-
+/**
+ * function to attempt registeringa new user, if the response is ok from the API the user information user is directed to the login page
+ * @param {user} user the user information from the registration page 
+ */
 async function register(user){
     try {
-        const response = await fetch(noroffRegisterUrl, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-              },
-        });
+        const response = await registerUser(user);
         const jsonReturn = await response.json();
         console.log(jsonReturn);
 
@@ -37,16 +28,22 @@ async function register(user){
     }
 }
 
+/**
+ * function to redirect the user to a page after 2 seconds of successful registration attempt
+ */
 function redirect () {
     setTimeout(myURL, 2000);
  }
 
+ /**
+ * function to specify url of login page that i want to redirect to
+ */
  function myURL() {
     document.location.href = '/index.html';
  }
 
-let message = document.getElementById("userFeedback");
-let loginForm = document.getElementById("RegistrationForm");
+const message = document.getElementById("userFeedback");
+const loginForm = document.getElementById("RegistrationForm");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -55,12 +52,11 @@ loginForm.addEventListener("submit", (e) => {
     const email = document.getElementById("InputEmail").value;
     const password = document.getElementById("InputPassword").value;
 
-    user.name = firstName + "_" + lastName;
-    user.email = email;
-    user.password = password;
+    const user = {
+        "name": firstName + "_" + lastName, 
+        "email": email, 
+        "password": password
+      };
 
     register(user);
-
-    
-
 });

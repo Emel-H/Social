@@ -1,21 +1,16 @@
+import{profileInfo, postDelete} from "../RESTAPI_module.mjs";
 
-const noroffProfileUrl = "https://api.noroff.dev/api/v1/social/profiles/";
-const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
-
+/**
+ * function to attempt to get a user profile, if the response is ok from the API the user information is then populated in various sections on the profile page
+ * @param {string} username the username of the profile to be retrieved 
+ */
 async function getProfile(username){
     try {
         const token = localStorage.getItem('accessToken');
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-                
-            });
+            const response = await profileInfo(username,token);
             const jsonReturn = await response.json();
             
             if(response.ok){
@@ -34,19 +29,17 @@ async function getProfile(username){
     }
 }
 
+/**
+ * function to delete a post
+ * @param {number} id identifier of the post to be deleted 
+ */
 async function deletePost(id){
     try {
         const token = localStorage.getItem('accessToken');
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl+id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postDelete(id, token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';
@@ -59,11 +52,19 @@ async function deletePost(id){
     }
 }
 
+/**
+ * function to populate the profile name
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfileName(jsonReturn){
     const profileName = document.getElementById("profileName");
     profileName.innerHTML = jsonReturn.name;
 }
 
+/**
+ * function to populate the profile image/avatar
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfileAvatar(jsonReturn){
     const profileImage = document.getElementById("profileImage");
     if(jsonReturn.avatar !=null){
@@ -74,11 +75,19 @@ function getProfileAvatar(jsonReturn){
     }
 }
 
+/**
+ * function to populate the profile email
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfileEmail(jsonReturn){
     const profileEmail = document.getElementById("profileEmail");
     profileEmail.innerHTML = jsonReturn.email;
 }
 
+/**
+ * function to populate the profile followers by itterating over the list 
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfileFollowers(jsonReturn){
     const followers = document.getElementById("profileFollowers");
     const profileFollowers = jsonReturn.followers;
@@ -99,6 +108,10 @@ function getProfileFollowers(jsonReturn){
     });
 }
 
+/**
+ * function to populate the profile followering by itterating over the list 
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfileFollowing(jsonReturn){
     const following = document.getElementById("profileFollowing");
     const profileFollowing = jsonReturn.following;
@@ -119,6 +132,10 @@ function getProfileFollowing(jsonReturn){
     });
 }
 
+/**
+ * function to populate the profile posts by itterating over the list. if this happens to by posts by the logged in user, edit and delete options are added in the form of buttons  
+ * @param {JSON} jsonReturn the json returned from the API call attempt 
+ */
 function getProfilePosts(jsonReturn){
     const posts = document.getElementById("profilePosts");
     const addPostButton = document.getElementById("addPostButton");
@@ -160,6 +177,9 @@ function getProfilePosts(jsonReturn){
     });
 }
 
+/**
+ * function to set which profile will be viewed based on if this is thecurrent users profile or a another user 
+ */
 function setProfileUser(){
     const queryString = document.location.search;
     const params = new URLSearchParams(queryString);
