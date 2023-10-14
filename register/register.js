@@ -1,5 +1,9 @@
 import{registerUser} from "../RESTAPI_module.mjs";
 
+/**
+ * function to attempt registeringa new user, if the response is ok from the API the user information user is directed to the login page
+ * @param {user} user the user information from the registration page 
+ */
 async function register(user){
     try {
         const response = await registerUser(user);
@@ -24,10 +28,16 @@ async function register(user){
     }
 }
 
+/**
+ * function to redirect the user to a page after 2 seconds of successful registration attempt
+ */
 function redirect () {
     setTimeout(myURL, 2000);
  }
 
+ /**
+ * function to specify url of login page that i want to redirect to
+ */
  function myURL() {
     document.location.href = '/index.html';
  }

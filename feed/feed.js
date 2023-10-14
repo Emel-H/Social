@@ -2,6 +2,9 @@
 import{postGet} from "../RESTAPI_module.mjs";
 let postsArray;
 
+/**
+ * function to populate the page with posts based on filters and searched results
+ */
 async function getPosts(){
     try {
         const token = localStorage.getItem('accessToken');
@@ -25,6 +28,9 @@ async function getPosts(){
     }
 }
 
+/**
+ * function to get the selected filter option, is user to modify the RESTAPI call to retrieve different post information. the filtering options are to view all posts or those specific to profile you follow.
+ */
 function getFilter(){
     const filter = document.getElementsByClassName("form-select");
     if(filter[0].value=="All Posts"){
@@ -35,6 +41,10 @@ function getFilter(){
     }
 }
 
+/**
+ * function to populate the the post array with the posts in the response form the REST API
+ * @param {JSON} jsonReturn the json returned from the API call attempt with data on filtered posts
+ */
 function getPostsArray(jsonReturn){
     postsArray = new Array();
     const profilePosts = jsonReturn;
@@ -66,6 +76,11 @@ function getPostsArray(jsonReturn){
     });
 }
 
+/**
+ * function to the HTML elemets for posts based on the filtering and searched phrase of the user. it also sets the number of responses retrieved
+ * @param {Array} postsArray and array of HTML elements corresponding to the posts 
+ * @param {string} search string of the searched phrase
+ */
 function setPosts(postsArray,search){
     const posts = document.getElementById("posts");
     posts.innerHTML = "";

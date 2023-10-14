@@ -1,5 +1,9 @@
 import{loginUser} from "./RESTAPI_module.mjs";
 
+/**
+ * function to attempt logging in, if the response is ok from the API the user information is stored in local storage and user is directed to their profile page
+ * @param {user} user the user information from the login page 
+ */
 async function login(user){
     try {
         const response = await loginUser(user);
@@ -14,6 +18,7 @@ async function login(user){
             document.location.href = 'profile/index.html';
         }
         else{
+            const message = document.getElementById("userFeedback");
             message.innerHTML = jsonReturn.errors[0].message;
             message.style.color = "red";
         }
@@ -25,7 +30,6 @@ async function login(user){
     }
 }
 
-const message = document.getElementById("userFeedback");
 const loginForm = document.getElementById("loginForm");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
