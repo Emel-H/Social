@@ -1,10 +1,7 @@
 
 const noroffLoginUrl = "https://api.noroff.dev/api/v1/social/auth/login";
 
-const user = {
-    "email": "first.last@stud.noroff.no", 
-    "password": "UzI1NiIsInR5cCI"
-  };
+
 
 async function login(user){
     try {
@@ -37,16 +34,18 @@ async function login(user){
     }
 }
 
-let message = document.getElementById("userFeedback");
-let loginForm = document.getElementById("loginForm");
+const message = document.getElementById("userFeedback");
+const loginForm = document.getElementById("loginForm");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const email = document.getElementById("InputEmail").value;
     const password = document.getElementById("InputPassword").value;
 
-    user.email = email;
-    user.password = password;
+    const user = {
+        "email": email, 
+        "password": password
+      };
 
     login(user);
 

@@ -1,11 +1,6 @@
 
 const noroffRegisterUrl = "https://api.noroff.dev/api/v1/social/auth/register";
 
-const user = {
-    "name": "my_username", 
-    "email": "first.last@stud.noroff.no", 
-    "password": "UzI1NiIsInR5cCI"
-  };
 
 async function register(user){
     try {
@@ -45,8 +40,8 @@ function redirect () {
     document.location.href = '/index.html';
  }
 
-let message = document.getElementById("userFeedback");
-let loginForm = document.getElementById("RegistrationForm");
+const message = document.getElementById("userFeedback");
+const loginForm = document.getElementById("RegistrationForm");
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -55,12 +50,11 @@ loginForm.addEventListener("submit", (e) => {
     const email = document.getElementById("InputEmail").value;
     const password = document.getElementById("InputPassword").value;
 
-    user.name = firstName + "_" + lastName;
-    user.email = email;
-    user.password = password;
+    const user = {
+        "name": firstName + "_" + lastName, 
+        "email": email, 
+        "password": password
+      };
 
     register(user);
-
-    
-
 });

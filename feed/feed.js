@@ -33,7 +33,7 @@ async function getPosts(){
 }
 
 function getFilter(){
-    let filter = document.getElementsByClassName("form-select");
+    const filter = document.getElementsByClassName("form-select");
     if(filter[0].value=="All Posts"){
         return "";
     }
