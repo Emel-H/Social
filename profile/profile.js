@@ -1,6 +1,5 @@
+import{profileInfo, postDelete} from "../RESTAPI_module.mjs";
 
-const noroffProfileUrl = "https://api.noroff.dev/api/v1/social/profiles/";
-const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
 
 async function getProfile(username){
     try {
@@ -8,14 +7,7 @@ async function getProfile(username){
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffProfileUrl+username+"?_posts=true&_followers=true&_following=true", {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-                
-            });
+            const response = await profileInfo(username,token);
             const jsonReturn = await response.json();
             
             if(response.ok){
@@ -40,13 +32,7 @@ async function deletePost(id){
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl+id, {
-                method: 'DELETE',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postDelete(id, token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';

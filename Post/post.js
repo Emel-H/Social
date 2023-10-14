@@ -1,4 +1,4 @@
-const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
+import{postGet, postEdit, postNew} from "../RESTAPI_module.mjs";
 
 async function getPost(id){
     try {
@@ -10,13 +10,7 @@ async function getPost(id){
                 setPostNew();
             }
             else{
-                const response = await fetch(noroffPostsUrl+id+"?_author=true&_comments=true", {
-                    method: 'GET',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await postGet(id, token);
                 const jsonReturn = await response.json();
                 
                 if(response.ok){
@@ -43,17 +37,7 @@ async function editPost(id){
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl+id, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    title: document.getElementById("postTitle").value,
-                    body: document.getElementById("postBody").value,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postEdit(id, token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';
@@ -72,17 +56,7 @@ async function newPost(){
         if(token==null){
             document.location.href = '/index.html';
         }else{
-            const response = await fetch(noroffPostsUrl, {
-                method: 'POST',
-                body: JSON.stringify({
-                    title: document.getElementById("postTitle").value,
-                    body: document.getElementById("postBody").value,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-            });
+            const response = await postNew(token);
             const jsonReturn = await response.json();
             if(response.ok){
                 document.location.href = '/profile/index.html';

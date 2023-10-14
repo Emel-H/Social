@@ -1,16 +1,8 @@
-
-const noroffRegisterUrl = "https://api.noroff.dev/api/v1/social/auth/register";
-
+import{registerUser} from "../RESTAPI_module.mjs";
 
 async function register(user){
     try {
-        const response = await fetch(noroffRegisterUrl, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-              },
-        });
+        const response = await registerUser(user);
         const jsonReturn = await response.json();
         console.log(jsonReturn);
 

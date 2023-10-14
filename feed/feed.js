@@ -1,5 +1,5 @@
 
-const noroffPostsUrl = "https://api.noroff.dev/api/v1/social/posts/";
+import{postGet} from "../RESTAPI_module.mjs";
 let postsArray;
 
 async function getPosts(){
@@ -9,14 +9,7 @@ async function getPosts(){
             document.location.href = '/index.html';
         }else{
             let filter = getFilter();
-            const response = await fetch(noroffPostsUrl+filter+"?_author=true", {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                    Authorization: `Bearer ${token}`,
-                  },
-                
-            });
+            const response = await postGet(filter, token);
             const jsonReturn = await response.json();
             
             if(response.ok){

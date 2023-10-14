@@ -1,17 +1,8 @@
-
-const noroffLoginUrl = "https://api.noroff.dev/api/v1/social/auth/login";
-
-
+import{loginUser} from "./RESTAPI_module.mjs";
 
 async function login(user){
     try {
-        const response = await fetch(noroffLoginUrl, {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-              },
-        });
+        const response = await loginUser(user);
         const jsonReturn = await response.json();
         console.log(jsonReturn);
 
